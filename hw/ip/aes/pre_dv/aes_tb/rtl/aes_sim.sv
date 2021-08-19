@@ -24,6 +24,14 @@ module aes_sim import aes_pkg::*;
   import aes_reg_pkg::*;
 
   logic edn_req;
+  keymgr_pkg::hw_key_req_t keymgr_key;
+
+  // Set a fixed sideload key for now. See AES-192 in aes_tlul_sequence_0.h.
+  assign keymgr_key.valid  = 1'b1;
+  assign keymgr_key.key[0][255:192] = 64'hFFFFFFFF_FFFFFFFF;
+  assign keymgr_key.key[0][191:0]   = 192'h7B6B2C52_D2EAF862_E5799080_2BF310C8_52640EDA_F7B0738E;
+  assign keymgr_key.key[1][255:192] = 64'hFFFFFFFF_FFFFFFFF;
+  assign keymgr_key.key[1][191:0]   = '0;
 
   // Instantiate top-level
   aes #(
@@ -43,6 +51,7 @@ module aes_sim import aes_pkg::*;
     .rst_edn_ni       ( rst_ni                        ),
     .edn_o            ( edn_req                       ),
     .edn_i            ( {edn_req, 1'b1, 32'h12345678} ),
+    .keymgr_key_i     ( keymgr_key                    ),
     .tl_i,
     .tl_o,
     .alert_rx_i       ( alert_rx                      ),

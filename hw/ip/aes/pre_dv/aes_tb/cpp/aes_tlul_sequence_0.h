@@ -77,10 +77,12 @@ static const TLI tl_i_transactions[num_transactions_max] = {
     // AES-192
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
+     (0x1 << AES_CTRL_SIDELOAD_OFFSET) |
          (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
      0, true},  // ctrl - decrypt, 192-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
+     (0x1 << AES_CTRL_SIDELOAD_OFFSET) |
          (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
      0, true},  // ctrl - decrypt, 192-bit
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x00, 0xF, 0xF7B0738E, 0, true},
