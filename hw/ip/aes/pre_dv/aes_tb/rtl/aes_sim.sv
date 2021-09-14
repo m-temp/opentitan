@@ -76,7 +76,7 @@ module aes_sim import aes_pkg::*;
   logic        stall /*verilator public_flat*/;
   logic        step  /*verilator public_flat*/;
 
-  // From aes_cipher_control.sv:
+  // From aes_cipher_control_fsm.sv:
   typedef enum logic [5:0] {
     IDLE     = 6'b111100,
     INIT     = 6'b101001,
@@ -89,8 +89,8 @@ module aes_sim import aes_pkg::*;
   aes_cipher_ctrl_e aes_cipher_ctrl_ns, aes_cipher_ctrl_cs;
   //
 
-  assign aes_cipher_ctrl_cs = u_aes.u_aes_core.u_aes_cipher_core.u_aes_cipher_control.aes_cipher_ctrl_cs;
-  assign aes_cipher_ctrl_ns = u_aes.u_aes_core.u_aes_cipher_core.u_aes_cipher_control.aes_cipher_ctrl_ns;
+  assign aes_cipher_ctrl_cs = u_aes.u_aes_core.u_aes_cipher_core.u_aes_cipher_control.gen_fsm[0].gen_fsm_p.u_aes_cipher_control_fsm_i.u_aes_cipher_control_fsm.aes_cipher_ctrl_cs;
+  assign aes_cipher_ctrl_ns = u_aes.u_aes_core.u_aes_cipher_core.u_aes_cipher_control.gen_fsm[0].gen_fsm_p.u_aes_cipher_control_fsm_i.u_aes_cipher_control_fsm.aes_cipher_ctrl_ns;
 
   assign start = (aes_cipher_ctrl_cs == IDLE) && (aes_cipher_ctrl_ns == INIT);   // IDLE -> INIT
   assign init  = (aes_cipher_ctrl_cs == INIT);                                   // INIT
