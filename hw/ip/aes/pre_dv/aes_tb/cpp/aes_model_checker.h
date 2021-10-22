@@ -7,6 +7,7 @@
 
 #include <cstdint>
 #include "Vaes_sim.h"
+#include "Vaes_sim___024root.h"
 #include "crypto.h"
 
 #define DEBUG_LEVEL 0

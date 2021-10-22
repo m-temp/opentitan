@@ -360,13 +360,13 @@ void AESModelChecker::GetInitRoundKey() {
 }
 
 void AESModelChecker::MonitorSignals() {
-  state_rtl_.op = rtl_->aes_sim__DOT__op;
-  state_rtl_.mode = (crypto_mode_t)rtl_->aes_sim__DOT__mode;
-  state_rtl_.cipher_op = rtl_->aes_sim__DOT__cipher_op;
-  state_rtl_.key_expand_op = rtl_->aes_sim__DOT__key_expand_op;
+  state_rtl_.op = rtl_->rootp->aes_sim__DOT__op;
+  state_rtl_.mode = (crypto_mode_t)rtl_->rootp->aes_sim__DOT__mode;
+  state_rtl_.cipher_op = rtl_->rootp->aes_sim__DOT__cipher_op;
+  state_rtl_.key_expand_op = rtl_->rootp->aes_sim__DOT__key_expand_op;
 
   // translate key_len
-  int temp = rtl_->aes_sim__DOT__key_len;
+  int temp = rtl_->rootp->aes_sim__DOT__key_len;
   if (temp & 0x1) {
     state_rtl_.key_len = 16;
   } else if (temp & 0x2) {
@@ -377,32 +377,32 @@ void AESModelChecker::MonitorSignals() {
     printf("ERROR: Invalid key_len value\n");
   }
 
-  state_rtl_.start = rtl_->aes_sim__DOT__start;
-  state_rtl_.init = rtl_->aes_sim__DOT__init;
-  state_rtl_.done = rtl_->aes_sim__DOT__done;
-  state_rtl_.busy = rtl_->aes_sim__DOT__busy;
-  state_rtl_.stall = rtl_->aes_sim__DOT__stall;
-  state_rtl_.step = rtl_->aes_sim__DOT__step;
+  state_rtl_.start = rtl_->rootp->aes_sim__DOT__start;
+  state_rtl_.init = rtl_->rootp->aes_sim__DOT__init;
+  state_rtl_.done = rtl_->rootp->aes_sim__DOT__done;
+  state_rtl_.busy = rtl_->rootp->aes_sim__DOT__busy;
+  state_rtl_.stall = rtl_->rootp->aes_sim__DOT__stall;
+  state_rtl_.step = rtl_->rootp->aes_sim__DOT__step;
 
-  state_rtl_.round = rtl_->aes_sim__DOT__round;
+  state_rtl_.round = rtl_->rootp->aes_sim__DOT__round;
 
   // helper variables
   AESState *state = &state_rtl_;
   int unsigned *rtl_iv, *rtl_data_in, *rtl_data_out_d, *rtl_key_full_q;
 
   // read bytes
-  CopyBlock(state->state_d, rtl_->aes_sim__DOT__state_d);
-  CopyBlock(state->state_q, rtl_->aes_sim__DOT__state_q);
-  CopyBlock(state->sub_bytes_out, rtl_->aes_sim__DOT__sub_bytes_out);
-  CopyBlock(state->shift_rows_out, rtl_->aes_sim__DOT__shift_rows_out);
-  CopyBlock(state->mix_columns_out, rtl_->aes_sim__DOT__mix_columns_out);
-  CopyBlock(state->add_round_key_out, rtl_->aes_sim__DOT__add_round_key_out);
-  CopyBlock(state->round_key, rtl_->aes_sim__DOT__round_key);
+  CopyBlock(state->state_d,           (unsigned char *)&rtl_->rootp->aes_sim__DOT__state_d);
+  CopyBlock(state->state_q,           (unsigned char *)&rtl_->rootp->aes_sim__DOT__state_q);
+  CopyBlock(state->sub_bytes_out,     (unsigned char *)&rtl_->rootp->aes_sim__DOT__sub_bytes_out);
+  CopyBlock(state->shift_rows_out,    (unsigned char *)&rtl_->rootp->aes_sim__DOT__shift_rows_out);
+  CopyBlock(state->mix_columns_out,   (unsigned char *)&rtl_->rootp->aes_sim__DOT__mix_columns_out);
+  CopyBlock(state->add_round_key_out, (unsigned char *)&rtl_->rootp->aes_sim__DOT__add_round_key_out);
+  CopyBlock(state->round_key,         (unsigned char *)&rtl_->rootp->aes_sim__DOT__round_key);
 
   // read words - convert to bytes for model - iv & data
-  rtl_iv = &rtl_->aes_sim__DOT__iv[0];
-  rtl_data_in = &rtl_->aes_sim__DOT__data_in[0];
-  rtl_data_out_d = &rtl_->aes_sim__DOT__data_out_d[0];
+  rtl_iv = &rtl_->rootp->aes_sim__DOT__iv[0];
+  rtl_data_in = &rtl_->rootp->aes_sim__DOT__data_in[0];
+  rtl_data_out_d = &rtl_->rootp->aes_sim__DOT__data_out_d[0];
   for (int i = 0; i < 4; i++) {
     state->iv[4 * i + 0] = (rtl_iv[i] & 0x000000FF) >> 0;
     state->iv[4 * i + 1] = (rtl_iv[i] & 0x0000FF00) >> 8;
@@ -419,7 +419,7 @@ void AESModelChecker::MonitorSignals() {
   }
 
   // read words - convert to bytes for model - key
-  rtl_key_full_q = &rtl_->aes_sim__DOT__key_full_q[0];
+  rtl_key_full_q = &rtl_->rootp->aes_sim__DOT__key_full_q[0];
   for (int i = 0; i < 8; i++) {
     state->full_key[4 * i + 0] = (rtl_key_full_q[i] & 0x000000FF) >> 0;
     state->full_key[4 * i + 1] = (rtl_key_full_q[i] & 0x0000FF00) >> 8;
@@ -427,7 +427,7 @@ void AESModelChecker::MonitorSignals() {
     state->full_key[4 * i + 3] = (rtl_key_full_q[i] & 0xFF000000) >> 24;
   }
 
-  state_rtl_.rcon = rtl_->aes_sim__DOT__rcon_q;
+  state_rtl_.rcon = rtl_->rootp->aes_sim__DOT__rcon_q;
 
   return;
 }
