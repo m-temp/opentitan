@@ -190,19 +190,19 @@ void AESTLULInterface::DriveSignals() {
   rtl_->tl_i[0] = 0;
 
   // tl_i bits:
-  // a_valid   - 1   - [106]     - [3][10]
-  // a_opcode  - 3   - [105:103] - [3][9:7]
-  // a_param   - 3   - [102:100] - [3][6:4]
-  // a_size    - 2   - [99:98]   - [3][3:2]
-  // a_source  - 8   - [97:90]   - [2][31:26] - [3][1:0]
-  // a_address - 32  - [89:58]   - [1][31:26] - [2][25:0]
-  // a_mask    - 4   - [57:54]   - [1][25:22]
-  // a_data    - 32  - [53:22]   - [0][31:22] - [1][21:0]
-  // a_user    - 21  - [21:1]    - [0][21:1]
+  // a_valid   - 1   - [108]     - [3][12]
+  // a_opcode  - 3   - [107:105] - [3][11:9]
+  // a_param   - 3   - [104:102] - [3][8:6]
+  // a_size    - 2   - [101:100] - [3][5:4]
+  // a_source  - 8   - [99:92]   - [2][31:28] - [3][3:0]
+  // a_address - 32  - [91:60]   - [1][31:28] - [2][27:0]
+  // a_mask    - 4   - [59:56]   - [1][27:24]
+  // a_data    - 32  - [55:24]   - [0][31:24] - [1][23:0]
+  // a_user    - 23  - [23:1]    - [0][23:1]
   // d_ready   - 1   - [0]       - [0][0]
 
-  // a_user.tl_type = DataType
-  uint8_t tl_type = 0x2;
+  // a_user.instr_type = False (Data)
+  uint8_t tl_type = 0x5;
 
   // generate cmd integrity data, see also
   // - hw/ip/tlul/rtl/tlul_pkg.sv
@@ -215,7 +215,7 @@ void AESTLULInterface::DriveSignals() {
   cmd_payload |= tl_i_.a_mask & 0xF;
   cmd_payload |= (tl_i_.a_opcode & 0x7) << 4;
   cmd_payload |= (tl_i_.a_address & 0xFFFFFFFF) << 7;
-  cmd_payload |= ((uint64_t)tl_type & 0x3) << 39;
+  cmd_payload |= ((uint64_t)tl_type & 0xF) << 39;
 
   // generate
   uint64_t cmd_intg = cmd_payload;
@@ -241,16 +241,16 @@ void AESTLULInterface::DriveSignals() {
   data_intg |= (BitwiseXOR(data_intg & 0x4098505586) & 0x1) << 38;
 
   // set required bits
-  rtl_->tl_i[3] |= (tl_i_.a_valid & 0x1) << 10;
-  rtl_->tl_i[3] |= (tl_i_.a_opcode & 0x7) << 7;
+  rtl_->tl_i[3] |= (tl_i_.a_valid & 0x1) << 12;
+  rtl_->tl_i[3] |= (tl_i_.a_opcode & 0x7) << 9;
   // param = 0
-  rtl_->tl_i[3] |= (tl_i_.a_size & 0x3) << 2;
+  rtl_->tl_i[3] |= (tl_i_.a_size & 0x3) << 4;
   // source = 0
-  rtl_->tl_i[2] |= (tl_i_.a_address & 0xFFFFFFC0) >> 6;
-  rtl_->tl_i[1] |= (tl_i_.a_address & 0x0000003F) << 26;
-  rtl_->tl_i[1] |= (tl_i_.a_mask & 0xF) << 22;
-  rtl_->tl_i[1] |= (tl_i_.a_data & 0xFFFFFC00) >> 10;
-  rtl_->tl_i[0] |= (tl_i_.a_data & 0x000003FF) << 22;
+  rtl_->tl_i[2] |= (tl_i_.a_address & 0xFFFFFFF0) >> 4;
+  rtl_->tl_i[1] |= (tl_i_.a_address & 0x0000000F) << 28;
+  rtl_->tl_i[1] |= (tl_i_.a_mask & 0xF) << 24;
+  rtl_->tl_i[1] |= (tl_i_.a_data & 0xFFFFFF00) >> 8;
+  rtl_->tl_i[0] |= (tl_i_.a_data & 0x000000FF) << 24;
   // a_user = 0
   // a_user.data_intg
   rtl_->tl_i[0] |= ((data_intg >> 32) & 0x7F) << 1;
