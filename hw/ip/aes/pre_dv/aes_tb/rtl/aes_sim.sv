@@ -33,6 +33,16 @@ module aes_sim import aes_pkg::*;
   assign keymgr_key.key[1][255:192] = 64'hFFFFFFFF_FFFFFFFF;
   assign keymgr_key.key[1][191:0]   = '0;
 
+  // Use a counter to provide some entropy for visual inspection.
+  logic [31:0] entropy_q;
+  always_ff @(posedge clk_i or negedge rst_ni) begin : reg_entropy
+    if (!rst_ni) begin
+      entropy_q <= 32'h12345678;
+    end else if (edn_req) begin
+      entropy_q <= entropy_q + 32'h1;
+    end
+  end
+
   // Instantiate top-level
   aes #(
     .AES192Enable         ( AES192Enable         ),
@@ -44,18 +54,18 @@ module aes_sim import aes_pkg::*;
   ) u_aes (
     .clk_i,
     .rst_ni,
-    .rst_shadowed_ni  ( rst_ni                        ),
-    .idle_o           (                               ),
-    .lc_escalate_en_i ( lc_ctrl_pkg::Off              ),
-    .clk_edn_i        ( clk_i                         ),
-    .rst_edn_ni       ( rst_ni                        ),
-    .edn_o            ( edn_req                       ),
-    .edn_i            ( {edn_req, 1'b1, 32'h12345678} ),
-    .keymgr_key_i     ( keymgr_key                    ),
+    .rst_shadowed_ni  ( rst_ni                     ),
+    .idle_o           (                            ),
+    .lc_escalate_en_i ( lc_ctrl_pkg::Off           ),
+    .clk_edn_i        ( clk_i                      ),
+    .rst_edn_ni       ( rst_ni                     ),
+    .edn_o            ( edn_req                    ),
+    .edn_i            ( {edn_req, 1'b1, entropy_q} ),
+    .keymgr_key_i     ( keymgr_key                 ),
     .tl_i,
     .tl_o,
-    .alert_rx_i       ( alert_rx                      ),
-    .alert_tx_o       ( alert_tx                      )
+    .alert_rx_i       ( alert_rx                   ),
+    .alert_tx_o       ( alert_tx                   )
   );
 
   // Signals for controlling model checker
