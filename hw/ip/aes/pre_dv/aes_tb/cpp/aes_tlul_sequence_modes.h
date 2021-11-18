@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
+#define PRNG_RESEED_RATE 0x2
 #define FORCE_ZERO_MASKS 0
 #define FEED_INPUT_WHILE_BUSY 1
 #define TEST_STALL 1
@@ -51,6 +52,7 @@ static void aes_tlul_sequence_modes_gen(int *i_transaction, int *i_exp_resp,
       AES_CONFIG,
       0xF,
       FORCE_ZERO_MASKS << AES_CTRL_FORCE_ZERO_MASKS_OFFSET |
+          PRNG_RESEED_RATE << AES_CTRL_PRNG_RESEED_RATE_OFFSET |
           (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) | (mode << 1) |
           (unsigned)op,
       0,
@@ -67,6 +69,7 @@ static void aes_tlul_sequence_modes_gen(int *i_transaction, int *i_exp_resp,
       AES_CONFIG,
       0xF,
       FORCE_ZERO_MASKS << AES_CTRL_FORCE_ZERO_MASKS_OFFSET |
+          PRNG_RESEED_RATE << AES_CTRL_PRNG_RESEED_RATE_OFFSET |
           (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) | (mode << 1) |
           (unsigned)op,
       0,
