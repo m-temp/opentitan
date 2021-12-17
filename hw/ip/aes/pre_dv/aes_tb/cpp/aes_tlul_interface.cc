@@ -207,7 +207,8 @@ void AESTLULInterface::DriveSignals() {
   // generate cmd integrity data, see also
   // - hw/ip/tlul/rtl/tlul_pkg.sv
   // - hw/ip/tlul/rtl/tlul_cmd_intg_chk.sv
-  // - hw/ip/prim/rtl/prim_secded_64_57_enc.sv
+  // - hw/ip/prim/rtl/prim_secded_inv_64_57_enc.sv
+  // - hw/ip/prim/rtl/prim_secded_inv_39_32_enc.sv
 
   // cmd and data integrity checking
   // prepare
@@ -219,26 +220,26 @@ void AESTLULInterface::DriveSignals() {
 
   // generate
   uint64_t cmd_intg = cmd_payload;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x0103FFF800007FFF) & 0x1) << 57;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x017C1FF801FF801F) & 0x1) << 58;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x01BDE1F87E0781E1) & 0x1) << 59;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x01DEEE3B8E388E22) & 0x1) << 60;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x01EF76CDB2C93244) & 0x1) << 61;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x01F7BB56D5525488) & 0x1) << 62;
-  cmd_intg |= (BitwiseXOR(cmd_intg & 0x01FBDDA769A46910) & 0x1) << 63;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x0103FFF800007FFF) & 0x1) ^ 0x0) << 57;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x017C1FF801FF801F) & 0x1) ^ 0x1) << 58;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x01BDE1F87E0781E1) & 0x1) ^ 0x0) << 59;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x01DEEE3B8E388E22) & 0x1) ^ 0x1) << 60;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x01EF76CDB2C93244) & 0x1) ^ 0x0) << 61;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x01F7BB56D5525488) & 0x1) ^ 0x1) << 62;
+  cmd_intg |= ((BitwiseXOR(cmd_intg & 0x01FBDDA769A46910) & 0x1) ^ 0x0) << 63;
 
   // prepare
   uint32_t data_payload = tl_i_.a_data;
 
   // generate
   uint64_t data_intg = (uint64_t)data_payload;
-  data_intg |= (BitwiseXOR(data_intg & 0x012606BD25) & 0x1) << 32;
-  data_intg |= (BitwiseXOR(data_intg & 0x02DEBA8050) & 0x1) << 33;
-  data_intg |= (BitwiseXOR(data_intg & 0x04413D89AA) & 0x1) << 34;
-  data_intg |= (BitwiseXOR(data_intg & 0x0831234ED1) & 0x1) << 35;
-  data_intg |= (BitwiseXOR(data_intg & 0x10C2C1323B) & 0x1) << 36;
-  data_intg |= (BitwiseXOR(data_intg & 0x202DCC624C) & 0x1) << 37;
-  data_intg |= (BitwiseXOR(data_intg & 0x4098505586) & 0x1) << 38;
+  data_intg |= ((BitwiseXOR(data_intg & 0x012606BD25) & 0x1) ^ 0x0) << 32;
+  data_intg |= ((BitwiseXOR(data_intg & 0x02DEBA8050) & 0x1) ^ 0x1) << 33;
+  data_intg |= ((BitwiseXOR(data_intg & 0x04413D89AA) & 0x1) ^ 0x0) << 34;
+  data_intg |= ((BitwiseXOR(data_intg & 0x0831234ED1) & 0x1) ^ 0x1) << 35;
+  data_intg |= ((BitwiseXOR(data_intg & 0x10C2C1323B) & 0x1) ^ 0x0) << 36;
+  data_intg |= ((BitwiseXOR(data_intg & 0x202DCC624C) & 0x1) ^ 0x1) << 37;
+  data_intg |= ((BitwiseXOR(data_intg & 0x4098505586) & 0x1) ^ 0x0) << 38;
 
   // set required bits
   rtl_->tl_i[3] |= (tl_i_.a_valid & 0x1) << 12;
