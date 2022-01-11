@@ -78,13 +78,14 @@ module aes_sim import aes_pkg::*;
 
   // From aes_cipher_control_fsm.sv:
   typedef enum logic [5:0] {
-    IDLE     = 6'b111100,
-    INIT     = 6'b101001,
-    ROUND    = 6'b010000,
-    FINISH   = 6'b100010,
-    CLEAR_S  = 6'b011011,
-    CLEAR_KD = 6'b110111,
-    ERROR    = 6'b001110
+    IDLE        = 6'b001001,
+    INIT        = 6'b100011,
+    ROUND       = 6'b111101,
+    FINISH      = 6'b010000,
+    PRNG_RESEED = 6'b100100,
+    CLEAR_S     = 6'b111010,
+    CLEAR_KD    = 6'b001110,
+    ERROR       = 6'b010111
   } aes_cipher_ctrl_e;
   aes_cipher_ctrl_e aes_cipher_ctrl_ns, aes_cipher_ctrl_cs;
   //
