@@ -10,7 +10,8 @@
 
 // Example 0 - encrypt/decrypt all key lenghts
 
-static const int num_transactions_max = 1 + 3 * (21 + 8 + 8) + 7 + 4 + 6 + 4;
+static const int num_transactions_max =
+    1 + 2 + 3 * (21 + 8 + 8) + 7 + 4 + 6 + 4;
 static const TLI tl_i_transactions[num_transactions_max] = {
     {true, 4, 0, 2, 0, AES_STATUS, 0xF, 0x0, 0, true},
     // AES-128
@@ -114,6 +115,11 @@ static const TLI tl_i_transactions[num_transactions_max] = {
     {true, 4, 0, 2, 0, AES_DATA_OUT_0 + 0x8, 0xF, 0x0, 0, true},
     {true, 4, 0, 2, 0, AES_DATA_OUT_0 + 0xC, 0xF, 0x0, 0, true},
     {true, 4, 0, 2, 0, AES_STATUS, 0xF, 0x0, 0, true},
+
+    {true, 0, 0, 2, 0, AES_AUX_CONFIG, 0xF, 0x0, 0,
+     true},  // disable force reseed on key touch
+    {true, 0, 0, 2, 0, AES_AUX_CONFIG, 0xF, 0x0, 0,
+     true},  // disable force reseed on key touch
 
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
