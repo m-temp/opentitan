@@ -2,13 +2,13 @@ CAPI=2:
 # Copyright lowRISC contributors.
 # Licensed under the Apache License, Version 2.0, see LICENSE for details.
 # SPDX-License-Identifier: Apache-2.0
-name: "lowrisc:dv_verilator:aes_sim:0.6"
+name: "lowrisc:dv_verilator:aes_sim:0.1"
 description: "AES Verilator TB"
 filesets:
   files_rtl:
     depend:
-      - lowrisc:ip:aes:0.6
-      - lowrisc:dv:aes_model_dpi:0.6
+      - lowrisc:ip:aes
+      - lowrisc:dv:aes_model_dpi
     files:
       - rtl/aes_sim.sv
     file_type: systemVerilogSource
@@ -16,8 +16,8 @@ filesets:
   files_dv_verilator:
     depend:
       - lowrisc:dv_verilator:simutil_verilator
-      - lowrisc:model:aes:0.6
-      - lowrisc:model:aes_modes:0.6
+      - lowrisc:model:aes
+      - lowrisc:model:aes_modes
 
     files:
       - cpp/aes_tb.cc
