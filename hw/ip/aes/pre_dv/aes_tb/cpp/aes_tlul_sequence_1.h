@@ -16,11 +16,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
     // AES-128
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x1 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x1 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 128-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x1 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x1 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 128-bit
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x00, 0xF, 0x03020100, 0, true},
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x04, 0xF, 0x07060504, 0, true},
@@ -54,11 +56,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
 
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x1 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x1 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 128-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x1 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x1 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 128-bit
     {true, 0, 0, 2, 0, AES_TRIGGER, 0xF, 0x1, 0, true},  // start
     {true, 4, 0, 2, 0, AES_STATUS, 0xF, 0x0, 0, true},
@@ -71,11 +75,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
     // AES-192
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x2 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 192-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x2 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 192-bit
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x00, 0xF, 0x03020100, 0, true},
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x04, 0xF, 0x07060504, 0, true},
@@ -109,11 +115,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
 
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x2 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 192-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x2 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x2 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 192-bit
     {true, 0, 0, 2, 0, AES_TRIGGER, 0xF, 0x1, 0, true},  // start
     {true, 4, 0, 2, 0, AES_STATUS, 0xF, 0x0, 0, true},
@@ -126,11 +134,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
     // AES-256
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x4 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x4 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 256-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x0 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x4 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x1,
+         (0x4 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x2,
      0, true},  // ctrl - decrypt, 256-bit
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x00, 0xF, 0x03020100, 0, true},
     {true, 0, 0, 2, 0, AES_KEY_SHARE0_0 + 0x04, 0xF, 0x07060504, 0, true},
@@ -164,11 +174,13 @@ static const TLI tl_i_transactions[num_transactions_max] = {
 
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x4 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x4 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 256-bit
     {true, 0, 0, 2, 0, AES_CONFIG, 0xF,
      (0x1 << AES_CTRL_MANUAL_OPERATION_OFFSET) |
-         (0x4 << AES_CTRL_KEY_LEN_OFFSET) | (kCryptoAesEcb << 1) | 0x0,
+         (0x4 << AES_CTRL_KEY_LEN_OFFSET) |
+         (kCryptoAesEcb << AES_CTRL_MODE_OFFSET) | 0x1,
      0, true},  // ctrl - encrypt, 256-bit
     {true, 0, 0, 2, 0, AES_TRIGGER, 0xF, 0x1, 0, true},  // start
     {true, 4, 0, 2, 0, AES_STATUS, 0xF, 0x0, 0, true},

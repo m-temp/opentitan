@@ -53,8 +53,8 @@ static void aes_tlul_sequence_modes_gen(int *i_transaction, int *i_exp_resp,
       0xF,
       FORCE_ZERO_MASKS << AES_CTRL_FORCE_ZERO_MASKS_OFFSET |
           PRNG_RESEED_RATE << AES_CTRL_PRNG_RESEED_RATE_OFFSET |
-          (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) | (mode << 1) |
-          (unsigned)op,
+          (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) |
+          (mode << AES_CTRL_MODE_OFFSET) | (unsigned)op,
       0,
       true};
   i_trx++;
@@ -70,8 +70,8 @@ static void aes_tlul_sequence_modes_gen(int *i_transaction, int *i_exp_resp,
       0xF,
       FORCE_ZERO_MASKS << AES_CTRL_FORCE_ZERO_MASKS_OFFSET |
           PRNG_RESEED_RATE << AES_CTRL_PRNG_RESEED_RATE_OFFSET |
-          (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) | (mode << 1) |
-          (unsigned)op,
+          (key_len_bits << AES_CTRL_KEY_LEN_OFFSET) |
+          (mode << AES_CTRL_MODE_OFFSET) | (unsigned)op,
       0,
       true};
   i_trx++;
@@ -218,7 +218,7 @@ int aes_tlul_sequence_modes_gen_all() {
   for (int i = 0; i < num_groups; ++i) {
     if (i == 0) {
       // ECB - 128 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesEcb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -227,7 +227,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextEcb128;
     } else if (i == 1) {
       // ECB - 128 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesEcb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -236,7 +236,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 2) {
       // ECB - 192 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesEcb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -245,7 +245,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextEcb192;
     } else if (i == 3) {
       // ECB - 192 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesEcb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -254,7 +254,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 4) {
       // ECB - 256 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesEcb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -263,7 +263,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextEcb256;
     } else if (i == 5) {
       // ECB - 256 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesEcb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -272,7 +272,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 6) {
       // CBC - 128 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCbc;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -281,7 +281,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCbc128;
     } else if (i == 7) {
       // CBC - 128 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCbc;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -290,7 +290,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 8) {
       // CBC - 192 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCbc;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -299,7 +299,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCbc192;
     } else if (i == 9) {
       // CBC - 192 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCbc;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -308,7 +308,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 10) {
       // CBC - 256 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCbc;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -317,7 +317,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCbc256;
     } else if (i == 11) {
       // CBC - 256 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCbc;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -326,7 +326,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 12) {
       // CFB - 128 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCfb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -335,7 +335,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCfb128;
     } else if (i == 13) {
       // CFB - 128 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCfb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -344,7 +344,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 14) {
       // CFB - 192 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCfb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -353,7 +353,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCfb192;
     } else if (i == 15) {
       // CFB - 192 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCfb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -362,7 +362,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 16) {
       // CFB - 256 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCfb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -371,7 +371,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCfb256;
     } else if (i == 17) {
       // CFB - 256 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCfb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -380,7 +380,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 18) {
       // OFB - 128 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesOfb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -389,7 +389,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextOfb128;
     } else if (i == 19) {
       // OFB - 128 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesOfb;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -398,7 +398,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 20) {
       // OFB - 192 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesOfb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -407,7 +407,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextOfb192;
     } else if (i == 21) {
       // OFB - 192 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesOfb;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -416,7 +416,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 22) {
       // OFB - 256 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesOfb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -425,7 +425,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextOfb256;
     } else if (i == 23) {
       // OFB - 256 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesOfb;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -434,7 +434,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 24) {
       // CTR - 128 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCtr;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -443,7 +443,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCtr128;
     } else if (i == 25) {
       // CTR - 128 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCtr;
       key_len = 16;
       key = (unsigned *)&kAesModesKey128;
@@ -452,7 +452,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 26) {
       // CTR - 192 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCtr;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -461,7 +461,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCtr192;
     } else if (i == 27) {
       // CTR - 192 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCtr;
       key_len = 24;
       key = (unsigned *)&kAesModesKey192;
@@ -470,7 +470,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesPlainText;
     } else if (i == 28) {
       // CTR - 256 - encode
-      op = 0;
+      op = 1;
       mode = kCryptoAesCtr;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;
@@ -479,7 +479,7 @@ int aes_tlul_sequence_modes_gen_all() {
       cipher_text = (unsigned *)&kAesModesCipherTextCtr256;
     } else if (i == 29) {
       // CTR - 256 - decode
-      op = 1;
+      op = 2;
       mode = kCryptoAesCtr;
       key_len = 32;
       key = (unsigned *)&kAesModesKey256;

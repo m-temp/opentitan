@@ -119,10 +119,10 @@ module aes_sim import aes_pkg::*;
   logic  [2:0] key_len       /*verilator public_flat*/;
   logic  [3:0] round         /*verilator public_flat*/;
 
-  assign op            = {u_aes.u_aes_core.aes_op_q};
+  assign op            = u_aes.u_aes_core.aes_op_q == AES_DEC;
   assign mode          = {u_aes.u_aes_core.aes_mode_q[4:0]};
-  assign cipher_op     = {u_aes.u_aes_core.u_aes_cipher_core.op_i};
-  assign key_expand_op = {u_aes.u_aes_core.u_aes_cipher_core.u_aes_key_expand.op_i};
+  assign cipher_op     = u_aes.u_aes_core.u_aes_cipher_core.op_i == CIPH_INV;
+  assign key_expand_op = u_aes.u_aes_core.u_aes_cipher_core.u_aes_key_expand.op_i == CIPH_INV;
   assign key_len       = {u_aes.u_aes_core.u_aes_cipher_core.key_len_i};
   assign round         = u_aes.u_aes_core.u_aes_cipher_core.u_aes_cipher_control.rnd_ctr_q;
 
