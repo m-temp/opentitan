@@ -7,8 +7,8 @@
 module aes_sim import aes_pkg::*;
 #(
   parameter bit          AES192Enable         = 1,
-  parameter bit          Masking              = 1,
-  parameter sbox_impl_e  SBoxImpl             = SBoxImplDom,
+  parameter bit          SecMasking           = 1,
+  parameter sbox_impl_e  SecSBoxImpl          = SBoxImplDom,
   parameter int unsigned SecStartTriggerDelay = 40,
   parameter bit          SecAllowForcingMasks = 0,
   parameter bit          SecSkipPRNGReseeding = 0
@@ -46,8 +46,8 @@ module aes_sim import aes_pkg::*;
   // Instantiate top-level
   aes #(
     .AES192Enable         ( AES192Enable         ),
-    .Masking              ( Masking              ),
-    .SBoxImpl             ( SBoxImpl             ),
+    .SecMasking           ( SecMasking           ),
+    .SecSBoxImpl          ( SecSBoxImpl          ),
     .SecStartTriggerDelay ( SecStartTriggerDelay ),
     .SecAllowForcingMasks ( SecAllowForcingMasks ),
     .SecSkipPRNGReseeding ( SecSkipPRNGReseeding )
@@ -148,7 +148,7 @@ module aes_sim import aes_pkg::*;
   // bytes
   for (genvar j=0; j<4; j++) begin : columns
     for (genvar i=0; i<4; i++) begin : rows
-      if (!Masking) begin
+      if (!SecMasking) begin
         assign state_d[4*j+i]           = u_aes.u_aes_core.u_aes_cipher_core.state_d[0][i][j];
         assign state_q[4*j+i]           = u_aes.u_aes_core.u_aes_cipher_core.state_q[0][i][j];
         assign sub_bytes_out[4*j+i]     = u_aes.u_aes_core.u_aes_cipher_core.sub_bytes_out[i][j];
@@ -178,7 +178,7 @@ module aes_sim import aes_pkg::*;
 
   // words - key
   for (genvar i = 0; i<8; i++) begin : gen_access_to_words_key
-    if (!Masking) begin
+    if (!SecMasking) begin
       assign key_full_q[i] = u_aes.u_aes_core.u_aes_cipher_core.key_full_q[0][i];
     end else begin
       assign key_full_q[i] = u_aes.u_aes_core.u_aes_cipher_core.key_full_q[0][i] ^ u_aes.u_aes_core.u_aes_cipher_core.key_full_q[1][i];
