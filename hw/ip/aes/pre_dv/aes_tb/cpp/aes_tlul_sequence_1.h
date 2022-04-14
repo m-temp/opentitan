@@ -214,10 +214,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
 
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      1 << AES_STATUS_OUTPUT_VALID_OFFSET},  // status shows output valid
-    {0xFFFFFFFF, 0xD8E0C469},
-    {0xFFFFFFFF, 0x30047B6A},
-    {0xFFFFFFFF, 0x80B7CDD8},
-    {0xFFFFFFFF, 0x5AC5B470},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xD8E0C469},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x30047B6A},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x80B7CDD8},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x5AC5B470},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      0},  // status shows output valid no longer valid
 
@@ -232,10 +232,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
 
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      1 << AES_STATUS_OUTPUT_VALID_OFFSET},  // status shows output valid
-    {0xFFFFFFFF, 0xA47CA9DD},
-    {0xFFFFFFFF, 0xE0DF4C86},
-    {0xFFFFFFFF, 0xA070AF6E},
-    {0xFFFFFFFF, 0x91710DEC},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xA47CA9DD},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xE0DF4C86},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xA070AF6E},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x91710DEC},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      0},  // status shows output valid no longer valid
 
@@ -250,10 +250,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
 
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      1 << AES_STATUS_OUTPUT_VALID_OFFSET},  // status shows output valid
-    {0xFFFFFFFF, 0xCAB7A28E},
-    {0xFFFFFFFF, 0xBF456751},
-    {0xFFFFFFFF, 0x9049FCEA},
-    {0xFFFFFFFF, 0x8960494B},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xCAB7A28E},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xBF456751},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x9049FCEA},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x8960494B},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      0},  // status shows output valid no longer valid
 

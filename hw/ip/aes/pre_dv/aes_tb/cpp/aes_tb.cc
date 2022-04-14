@@ -15,6 +15,8 @@
 
 #include "sim_ctrl_extension.h"
 
+#define CHECK_MODEL 1
+
 class AESSim : public SimCtrlExtension {
   using SimCtrlExtension::SimCtrlExtension;
 
@@ -40,7 +42,9 @@ void AESSim::OnClock(unsigned long sim_time) {
 
   if (sim_time > 10) {
     tlul_interface_.HandleInterface();
-    retval = model_checker_.CheckModel();
+    if (CHECK_MODEL) {
+      retval = model_checker_.CheckModel();
+    }
   }
 
   if (retval) {

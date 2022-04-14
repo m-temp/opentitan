@@ -268,10 +268,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
      1 << AES_STATUS_OUTPUT_VALID_OFFSET | 1 << AES_STATUS_OUTPUT_LOST_OFFSET |
          1 << AES_STATUS_IDLE_OFFSET},  // status shows output valid, output
                                         // lost and idle
-    {0xFFFFFFFF, 0x1D842539},
-    {0xFFFFFFFF, 0xFB09DC02},
-    {0xFFFFFFFF, 0x978511DC},
-    {0xFFFFFFFF, 0x320B6A19},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x1D842539},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xFB09DC02},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x978511DC},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x320B6A19},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET | 1 << AES_STATUS_OUTPUT_LOST_OFFSET,
      0 << AES_STATUS_OUTPUT_VALID_OFFSET |
          1 << AES_STATUS_OUTPUT_LOST_OFFSET},  // status shows output no longer
@@ -292,10 +292,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
 
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      1 << AES_STATUS_OUTPUT_VALID_OFFSET},  // status shows output valid
-    {0xFFFFFFFF, 0xB69F5E58},
-    {0xFFFFFFFF, 0x9A2B72C2},
-    {0xFFFFFFFF, 0xC192F4F4},
-    {0xFFFFFFFF, 0xC124B02B},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xB69F5E58},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x9A2B72C2},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xC192F4F4},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0xC124B02B},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      0},  // status shows output valid no longer valid
 
@@ -315,10 +315,10 @@ static const EXP_RESP tl_o_exp_resp[num_responses_max] = {
 
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      1 << AES_STATUS_OUTPUT_VALID_OFFSET},  // status shows output valid
-    {0xFFFFFFFF, 0x3A612130},
-    {0xFFFFFFFF, 0x2F583E97},
-    {0xFFFFFFFF, 0x4123294A},
-    {0xFFFFFFFF, 0x94C4AE37},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x3A612130},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x2F583E97},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x4123294A},
+    {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0, 0x94C4AE37},
     {1 << AES_STATUS_OUTPUT_VALID_OFFSET,
      0},  // status shows output valid no longer valid
 

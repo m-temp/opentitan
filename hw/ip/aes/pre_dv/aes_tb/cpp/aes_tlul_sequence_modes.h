@@ -174,7 +174,8 @@ static void aes_tlul_sequence_modes_gen(int *i_transaction, int *i_exp_resp,
       tl_i_transactions[i_trx] = {
           true, 4, 0, 2,   0, (unsigned)(AES_DATA_OUT_0 + 4 * i),
           0xF,  0, 0, true};
-      tl_o_exp_resp[i_resp] = {0xFFFFFFFF, cipher_text[i]};
+      tl_o_exp_resp[i_resp] = {CHECK_DATA_OUT ? 0xFFFFFFFF : 0x0,
+                               cipher_text[i]};
       i_trx++;
       i_resp++;
     }
