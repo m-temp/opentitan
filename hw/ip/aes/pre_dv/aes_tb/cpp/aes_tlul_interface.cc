@@ -4,9 +4,11 @@
 
 #include "aes_tlul_interface.h"
 
-#define SEQ 3
+#define SEQ 4
 
-#if(SEQ == 3)
+#if(SEQ == 4)
+#include "aes_tlul_sequence_auto.h"
+#elif (SEQ == 3)
 #include "aes_tlul_sequence_doc.h"
 #elif (SEQ == 2)
 #include "aes_tlul_sequence_modes.h"
