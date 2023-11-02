@@ -1,0 +1,24 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ip:ascon:0.1"
+description: "Ascon unit"
+filesets:
+  files_rtl:
+    depend:
+      - lowrisc:prim:all
+      - lowrisc:ip:tlul
+    files:
+      - rtl/ascon_pkg.sv
+      - rtl/ascons_reg_pkg.sv
+      - rtl/ascon_reg_top.sv
+      - rtl/ascon_core.sv
+      - rtl/ascon.sv
+    file_type: systemVerilogSource
+
+targets:
+  default: &default_target
+    filesets:
+      - files_rtl
+    toplevel: ascon

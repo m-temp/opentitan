@@ -56,7 +56,8 @@ KNOWN_CIP_IDS = {
     32: 'alert_handler',
     33: 'rv_plic',
     34: 'ast',
-    35: 'sensor_ctrl'
+    35: 'sensor_ctrl',
+    36: 'ascon'
 }
 
 REQUIRED_ALIAS_FIELDS = {
